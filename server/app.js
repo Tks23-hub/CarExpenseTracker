@@ -14,6 +14,9 @@ app.use("/api/auth", authRoutes);
 const carRoutes = require("./routes/carRoutes");
 app.use("/api/cars", carRoutes);
 
+const logRoutes = require("./routes/logRoutes");
+app.use("/api/logs", logRoutes);
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

@@ -14,6 +14,4 @@ router.put("/edit/:car_id", carController.editCar);
 // Route to delete a car by ID
 router.delete("/delete/:car_id", carController.deleteCar);
 
-// (Later:  /get, /edit, /delete here)
-
 module.exports = router;
