@@ -1,5 +1,7 @@
 const db = require("../db");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 // REGISTER USER
 const registerUser = async (req, res) => {
@@ -62,8 +64,17 @@ const loginUser = (req, res) => {
       return res.status(401).json({ message: "Invalid username or password" });
     }
 
+    // Generate token
+    const token = jwt.sign(
+      { id: user.id }, // payload
+      process.env.JWT_SECRET, // secret key from .env
+      { expiresIn: "1d" } // token validity
+    );
+
+    // Return user info + token
     res.status(200).json({
       message: "Login successful",
+      token,
       user: {
         id: user.id,
         username: user.username,

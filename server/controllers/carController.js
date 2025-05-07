@@ -2,7 +2,9 @@ const db = require("../db");
 
 // Function to add a new car
 const addCar = (req, res) => {
-  const { user_id, type, model, year, color, license_plate } = req.body;
+  const user_id = req.user.id; // Extract user ID from the token
+  // const user_id = req.body.user_id; // Alternatively, you can get it from the request body if needed but you cant trust it
+  const { type, model, year, color, license_plate } = req.body;
 
   if (!user_id || !type || !model || !year || !color || !license_plate) {
     return res.status(400).json({ message: "All fields are required" });
@@ -29,7 +31,7 @@ const addCar = (req, res) => {
 
 // Function to get all cars by user ID
 const getCarsByUser = (req, res) => {
-  const user_id = req.params.user_id;
+  const user_id = req.user.id;
 
   const sql = `SELECT * FROM cars WHERE user_id = ?`;
 
