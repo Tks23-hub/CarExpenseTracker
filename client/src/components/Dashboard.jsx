@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function Dashboard() {
+  const [visibleLogs, setVisibleLogs] = useState({});
   const [cars, setCars] = useState([]);
   const [error, setError] = useState("");
   const [formData, setFormData] = useState({
@@ -50,6 +51,7 @@ function Dashboard() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // Function to Add a Car
   const handleAddCar = async (e) => {
     e.preventDefault();
     setError("");
@@ -74,6 +76,7 @@ function Dashboard() {
       setError(err.response?.data?.message || "Failed to add car");
     }
   };
+  // Function to Delete a Car
   const handleDeleteCar = async (carId) => {
     try {
       await axios.delete(`http://localhost:5000/api/cars/delete/${carId}`, {
@@ -82,10 +85,35 @@ function Dashboard() {
         },
       });
 
-      // Refresh the list
       fetchCars();
     } catch (err) {
       setError(err.response?.data?.message || "Failed to delete car");
+    }
+  };
+  // Function to Toggle Logs Visibility
+  const toggleLogs = async (carId) => {
+    if (visibleLogs[carId]) {
+      // Hide logs if already visible
+      setVisibleLogs((prev) => {
+        const newLogs = { ...prev };
+        delete newLogs[carId];
+        return newLogs;
+      });
+    } else {
+      try {
+        const res = await axios.get(`http://localhost:5000/api/logs/${carId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setVisibleLogs((prev) => ({
+          ...prev,
+          [carId]: res.data,
+        }));
+      } catch (err) {
+        setError(err.response?.data?.message || "Failed to fetch logs");
+      }
     }
   };
 
@@ -108,6 +136,27 @@ function Dashboard() {
             >
               Delete
             </button>
+            <button
+              onClick={() => toggleLogs(car.id)}
+              style={{ marginLeft: "10px" }}
+            >
+              {visibleLogs[car.id] ? "Hide Logs" : "View Logs"}
+            </button>
+            {visibleLogs[car.id] && (
+              <ul>
+                {visibleLogs[car.id].length === 0 ? (
+                  <li>No logs found for this car.</li>
+                ) : (
+                  visibleLogs[car.id].map((log) => (
+                    <li key={log.id}>
+                      <strong>{log.log_type.toUpperCase()}</strong> -{" "}
+                      {log.description} | Cost: ${log.cost} | Date:{" "}
+                      {new Date(log.log_date).toLocaleString()}
+                    </li>
+                  ))
+                )}
+              </ul>
+            )}
           </li>
         ))}
       </ul>
