@@ -9,13 +9,21 @@ function App() {
     setUser(userData);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUser(null);
+  };
+
   return (
     <div>
       {!user ? (
         <Login onLoginSuccess={handleLoginSuccess} />
       ) : (
         <>
-          <h2>Welcome, {user.username}!</h2>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <h2>Welcome, {user.username}!</h2>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
           <Dashboard />
         </>
       )}
