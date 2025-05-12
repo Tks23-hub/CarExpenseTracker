@@ -90,4 +90,42 @@ const deleteLog = (req, res) => {
   });
 };
 
-module.exports = { addLog, getLogsByCar, editLog, deleteLog };
+// Function to get all logs for a user
+// cl stands for car_logs
+const getAllLogsForUser = (req, res) => {
+  console.log("✅ Fetching all logs for user:", req.user.id);
+
+  const userId = req.user.id;
+  const sql = `
+    SELECT
+      cl.id,
+      cl.car_id,
+      cl.log_type,
+      cl.description,
+      cl.cost,
+      cl.log_date,
+      c.type AS car_type,
+      c.model AS car_model
+    FROM car_logs AS cl
+    JOIN cars AS c
+      ON cl.car_id = c.id
+    WHERE c.user_id = ?
+    ORDER BY cl.log_date DESC
+  `;
+  db.query(sql, [userId], (err, results) => {
+    if (err) {
+      console.error("Error fetching user log history:", err);
+      return res.status(500).json({ message: "Server error" });
+    }
+    console.log("✅ Logs fetched:", results.length); // ADD THIS
+    res.status(200).json(results);
+  });
+};
+
+module.exports = {
+  addLog,
+  getLogsByCar,
+  editLog,
+  deleteLog,
+  getAllLogsForUser,
+};
