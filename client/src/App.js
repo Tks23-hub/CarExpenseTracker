@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import LogHistory from "./components/LogHistory";
+import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -16,15 +17,14 @@ function App() {
     setUser(null);
     setViewHistory(false);
   };
-  console.log("👁 View mode:", viewHistory ? "LogHistory" : "Dashboard");
 
   if (!user) {
     return <Login onLoginSuccess={handleLoginSuccess} />;
   }
 
   return (
-    <div>
-      <div
+    <div className="container">
+      <header
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -32,7 +32,7 @@ function App() {
         }}
       >
         <h2>Welcome, {user.username}!</h2>
-        <div>
+        <nav>
           <button onClick={() => setViewHistory(false)} disabled={!viewHistory}>
             Dashboard
           </button>
@@ -46,8 +46,8 @@ function App() {
           <button onClick={handleLogout} style={{ marginLeft: "16px" }}>
             Logout
           </button>
-        </div>
-      </div>
+        </nav>
+      </header>
 
       {viewHistory ? <LogHistory /> : <Dashboard />}
     </div>

@@ -60,12 +60,13 @@ function LogHistory() {
 
   return (
     <div>
+      <div className="log-history-container"></div>
       <h2>All Log History</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {logs.length === 0 && !error && <p>You have no logs yet.</p>}
-      <ul>
+      <ul style={{ listStyle: "none", padding: 0 }}>
         {logs.map((log) => (
-          <li key={log.id}>
+          <li key={log.id} className="log-entry">
             <strong>
               {log.car_type} {log.car_model}
             </strong>{" "}
