@@ -131,3 +131,190 @@ nav button:disabled {
   text-align: center;
   margin-bottom: 20px;
 }
+
+/* === DASHBOARD SECTION === */
+.dashboard-container {
+  margin-top: 30px;
+}
+
+.car-box {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  padding: 18px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.car-box strong {
+  font-size: 18px;
+  color: #333;
+}
+
+.car-box p {
+  margin: 6px 0;
+}
+
+.car-box button {
+  margin-top: 10px;
+  margin-right: 8px;
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.car-box button:hover {
+  background-color: #0056b3;
+}
+
+.dashboard-log {
+  margin-top: 12px;
+  padding: 12px;
+  background-color: #f1f8ff;
+  border-left: 4px solid #007bff;
+  border-radius: 6px;
+}
+
+.dashboard-log li {
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+.dashboard-log form {
+  margin-top: 12px;
+  background: #fdfdfd;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.dashboard-log input,
+.dashboard-log select {
+  display: block;
+  margin-top: 8px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.dashboard-log button[type="submit"] {
+  margin-top: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-car-form {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.06);
+}
+
+.add-car-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+}
+
+.add-car-form button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-car-form button:hover {
+  background-color: #218838;
+}
+
+/* Floating Button */
+.floating-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #2d89ef;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 26px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.floating-button:hover {
+  background-color: #1b5dab;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+  margin-top: 0;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.modal-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-buttons button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-buttons button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #dc3545;
+  color: white;
+}
