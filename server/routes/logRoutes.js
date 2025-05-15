@@ -6,6 +6,9 @@ const verifyToken = require("../middleware/authMiddleware");
 // Route to add a log entry
 router.post("/add", verifyToken, logController.addLog);
 
+// Route to get all stats for a specific user
+router.get("/stats", verifyToken, logController.getStats);
+
 // Route to get all logs
 router.get("/all", verifyToken, logController.getAllLogsForUser);
 

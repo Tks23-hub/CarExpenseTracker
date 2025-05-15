@@ -122,10 +122,50 @@ const getAllLogsForUser = (req, res) => {
   });
 };
 
+// Function to get spending stats for the user
+const getStats = (req, res) => {
+  const userId = Number(req.user.id);
+
+  console.log("📊 Getting stats for user:", userId);
+  const sql = `
+  SELECT 
+    c.id AS car_id,
+    c.type AS car_type,
+    c.model AS car_model,
+    COALESCE(SUM(cl.cost), 0) AS total_spent
+  FROM cars c
+  LEFT JOIN car_logs cl ON c.id = cl.car_id
+  WHERE c.user_id = ?
+  GROUP BY c.id, c.type, c.model
+
+  UNION ALL
+
+  SELECT 
+    NULL AS car_id,
+    cl.log_type AS car_type,
+    NULL AS car_model,
+    COALESCE(SUM(cl.cost), 0) AS total_spent
+  FROM car_logs cl
+  JOIN cars c ON cl.car_id = c.id
+  WHERE c.user_id = ?
+  GROUP BY cl.log_type;
+`;
+
+  db.query(sql, [userId, userId], (err, results) => {
+    if (err) {
+      console.error("Error fetching stats:", err);
+      return res.status(500).json({ message: "Server error" });
+    }
+    console.log("📦 Stats results:", results);
+    console.dir(results, { depth: null });
+    res.status(200).json(results);
+  });
+};
 module.exports = {
   addLog,
   getLogsByCar,
   editLog,
   deleteLog,
   getAllLogsForUser,
+  getStats,
 };

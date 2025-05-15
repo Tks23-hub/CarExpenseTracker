@@ -3,11 +3,13 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import LogHistory from "./components/LogHistory";
 import Signup from "./components/Signup";
+import Stats from "./components/Stats";
+
 import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [viewHistory, setViewHistory] = useState(false);
+  const [view, setView] = useState("dashboard");
   const [showSignup, setShowSignup] = useState(false);
 
   const handleLoginSuccess = (userData) => {
@@ -17,7 +19,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUser(null);
-    setViewHistory(false);
+    setView("dashboard");
   };
 
   if (!user) {
@@ -45,15 +47,20 @@ function App() {
       >
         <h2>Welcome, {user.username}!</h2>
         <nav>
-          <button onClick={() => setViewHistory(false)} disabled={!viewHistory}>
+          <button
+            onClick={() => setView("dashboard")}
+            disabled={view === "dashboard"}
+          >
             Dashboard
           </button>
           <button
-            onClick={() => setViewHistory(true)}
-            disabled={viewHistory}
-            style={{ marginLeft: "8px" }}
+            onClick={() => setView("history")}
+            disabled={view === "history"}
           >
             View Log History
+          </button>
+          <button onClick={() => setView("stats")} disabled={view === "stats"}>
+            View Stats
           </button>
           <button onClick={handleLogout} style={{ marginLeft: "16px" }}>
             Logout
@@ -61,7 +68,9 @@ function App() {
         </nav>
       </header>
 
-      {viewHistory ? <LogHistory /> : <Dashboard />}
+      {view === "dashboard" && <Dashboard />}
+      {view === "history" && <LogHistory />}
+      {view === "stats" && <Stats />}
     </div>
   );
 }
