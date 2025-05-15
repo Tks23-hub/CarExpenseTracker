@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-function Login({ onLoginSuccess }) {
+function Login({ onLoginSuccess, onSwitchToSignup }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -48,6 +48,21 @@ function Login({ onLoginSuccess }) {
           <button type="submit">Login</button>
         </form>
         {error && <p style={{ color: "red" }}>{error}</p>}
+        <p>
+          Don’t have an account?{" "}
+          <button
+            type="button"
+            onClick={onSwitchToSignup}
+            style={{
+              border: "none",
+              background: "none",
+              color: "#007bff",
+              cursor: "pointer",
+            }}
+          >
+            Sign up here
+          </button>
+        </p>
       </div>
     </div>
   );

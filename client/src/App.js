@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import LogHistory from "./components/LogHistory";
+import Signup from "./components/Signup";
 import "./App.css";
 
 function App() {
   const [user, setUser] = useState(null);
   const [viewHistory, setViewHistory] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
 
   const handleLoginSuccess = (userData) => {
     setUser(userData);
@@ -19,7 +21,17 @@ function App() {
   };
 
   if (!user) {
-    return <Login onLoginSuccess={handleLoginSuccess} />;
+    return showSignup ? (
+      <Signup
+        onSignupSuccess={handleLoginSuccess}
+        onSwitchToLogin={() => setShowSignup(false)}
+      />
+    ) : (
+      <Login
+        onLoginSuccess={handleLoginSuccess}
+        onSwitchToSignup={() => setShowSignup(true)}
+      />
+    );
   }
 
   return (
